@@ -59,4 +59,17 @@ public class Permuter<T>{
         }
     }
 
+    public List<T[]> getAll(){
+        try{
+            while(true) next();
+        }catch(LastPermutationException ex){}
+        return new LinkedList(permutations);
+    }
+
+    public List<T[]> getAllNext(){
+        int current = permutations.size() + nextPermutationBatch.size() - 1;
+        getAll();
+        return new LinkedList(permutations.subList(current, permutations.size()));
+    }
+
 }
