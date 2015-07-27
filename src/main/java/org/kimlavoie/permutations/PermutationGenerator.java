@@ -3,7 +3,7 @@ package org.kimlavoie.permutations;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Permuter<T>{
+public class PermutationGenerator<T>{
     private T[] original;
     private int permutationIndex;
     private int mainObjectIndex;
@@ -13,7 +13,7 @@ public class Permuter<T>{
     private boolean end = false;
 
 
-    public Permuter(T[] original){
+    public PermutationGenerator(T[] original){
         this.original = original;
         permutations.add(this.original);
         permutationIndex = 0;

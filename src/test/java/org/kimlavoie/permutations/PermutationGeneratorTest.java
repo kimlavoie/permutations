@@ -7,27 +7,27 @@ import static org.hamcrest.CoreMatchers.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class PermuterTest {
+public class PermutationGeneratorTest {
     private Integer[] original;
-    private Permuter<Integer> permuter;
+    private PermutationGenerator<Integer> permutationGenerator;
     
     @Before
     public void init(){
         Integer[] temp = {1,2,3,4};
         this.original = temp;
-        this.permuter = new Permuter<Integer>(original);
+        this.permutationGenerator = new PermutationGenerator<Integer>(original);
     }
 
     @Test
     public void nextIsNotOriginalTest(){
-        Integer[] permutation = permuter.next();
+        Integer[] permutation = permutationGenerator.next();
 
         assertThat(original, not(equalTo(permutation)));
     }
 
     @Test
     public void nextIsPermutationTest(){
-        Integer[] permutation = permuter.next();
+        Integer[] permutation = permutationGenerator.next();
         Arrays.sort(permutation);
 
         assertThat(original, equalTo(permutation));
@@ -35,16 +35,16 @@ public class PermuterTest {
 
     @Test
     public void firstAndSecondNextNotEqualsTest(){
-        Integer[] first = permuter.next();
-        Integer[] second = permuter.next();
+        Integer[] first = permutationGenerator.next();
+        Integer[] second = permutationGenerator.next();
 
         assertThat(first, not(equalTo(second)));
     }
     
     @Test
     public void firstAndSecondNextArePermutationsTest(){
-        Integer[] first = permuter.next();
-        Integer[] second = permuter.next();
+        Integer[] first = permutationGenerator.next();
+        Integer[] second = permutationGenerator.next();
         Arrays.sort(first);
         Arrays.sort(second);
 
@@ -54,40 +54,40 @@ public class PermuterTest {
     @Test(timeout=1)
     public void enoughPermutationsTest(){
         for(int i = 0; i < 23; i++){
-            permuter.next();
+            permutationGenerator.next();
         }
     }
 
     @Test(expected=LastPermutationException.class)
     public void throwExceptionAtTheEndTest(){
         for(int i = 0; i < 24; i++){
-            permuter.next();
+            permutationGenerator.next();
         }
     }
 
     @Test
     public void allPermutationsSizeTest(){
-        List<Integer[]> allPermutations = permuter.getAll();
+        List<Integer[]> allPermutations = permutationGenerator.getAll();
         assertEquals(allPermutations.size(), 24);
     }
 
     @Test
     public void allPermutationsAreAllPermutationsTest(){
-        List<Integer[]> allPermutations = permuter.getAll();
+        List<Integer[]> allPermutations = permutationGenerator.getAll();
         areAllPermutationsTest(allPermutations);
     }
 
     @Test
     public void allNextSizeTest(){
-        permuter.next();
-        List<Integer[]> allNext = permuter.getAllNext();
+        permutationGenerator.next();
+        List<Integer[]> allNext = permutationGenerator.getAllNext();
 
         assertEquals(allNext.size(), 23);
     }
 
     @Test
     public void allNextAreAllPermutationsTest(){
-        List<Integer[]> allNext = permuter.getAllNext();
+        List<Integer[]> allNext = permutationGenerator.getAllNext();
         areAllPermutationsTest(allNext);
     }
 
